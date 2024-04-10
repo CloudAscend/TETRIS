@@ -1,1 +1,2 @@
 C:\Users\배강민\Labyrinth Simulation Dynamo\MOCI_TETRIS\x64\Debug\MOCI_TETRIS.exe
+C:\TETRIS\MOCI_TETRIS\x64\Debug\MOCI_TETRIS.exe

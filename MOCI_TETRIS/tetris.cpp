@@ -25,7 +25,7 @@ int rotate_kind;
 int screen_x, screen_y;
 int score;
 int level;
-int boss = 10000; //테스트용
+int boss = 10000; //테스트용 원래 > 10000
 int isHolding = 0;
 
 void CurrentXY(int x, int y);
@@ -54,29 +54,16 @@ void ChangeScore(int i);
 void ChangeLevel(int i);
 void ChangeBoss(int i);
 
-int Ingame();
+void Ingame();
 void Ending();
 void Title();
+//void Gameover();
 
 int main() { //타이틀
 
 	Title();
 	Ingame();
-	//printf("13123123123123");
-
-	/*if (score == 1)
-		for (int i = 0; i < 200; i++) {
-			for (int j = 0; j < 200; j++) {
-				CurrentXY(i, j);
-				printf(" ");
-			}
-		}
-
-	do {
-		CurrentXY(45, 24);
-		printf("THE END");
-		Ending();
-	} while (not _kbhit());*/
+	//Gameover();
 
 	return 0;
 }
@@ -119,7 +106,7 @@ void Title() {
 	}
 }
 
-int Ingame() { //인게임
+void Ingame() { //인게임
 	int chk, chk2;
 
 	CursorOff();
@@ -156,64 +143,151 @@ int Ingame() { //인게임
 
 	} while (1);
 
-	CursorOn();
+	CursorOff();
+	Color(15);
+	for (int i = 0; i < 20; i++) {
+		for (int j = 0; j < 20; j++) {
+			CurrentXY(32 + i, j);
+			printf(" ");
+		}
+	}
 
-	return 0;
+	level = 1;
+
+	Timing();
+	Timing();
+
+	CurrentXY(38, 15);
+	printf("GAME OVER");
+
+	Timing();
+	Timing();
+	Timing();
+	Timing();
+	Timing();
+	Timing();
+	Timing();
+	Timing();
+
+	//Gameover();
+	CursorOn();
 }
 
-/*void Ending() { //엔딩
-	CursorOff();
+void Ending() { //엔딩
+	int level = 0;
 
-	for (int i = 0; i < 200; i++) {
-		for (int j = 0; j < 200; j++) {
+	//CursorOff();
+	Color(15);
+
+	for (int i = 0; i < 29; i++) {
+		for (int j = 0; j < 50; j++) {
 			CurrentXY(i, j);
 			printf(" ");
 		}
 	}
 
-	for (int i = 0; i < 21; i++) {
-		CurrentXY(30, i);
-		printf("│");
-
-		CurrentXY(52, i);
-		printf("│");
-	}
-
-	CurrentXY(30, 20);
-	printf("└");
-	for (int j = 1; j < 11; j++) {
-		CurrentXY(30 + j * 2, 20);
-		printf("─");
-	}
-	CurrentXY(52, 20);
-	printf("┘");
-
-	do {
-		screen_y = 0;
-		screen_x = 4;
-
-		for (int i = 0; i < 4; i++) {
-
-			CurrentXY(30 + (screen_x + form[form_kind][rotate_kind][i * 2]) * 2,
-				screen_y + form[form_kind][rotate_kind][i * 2 + 1]);
-
-			printf(");
-			printf("
+	for (int i = 0; i < 40; i++) {
+		for (int j = 0; j < 100; j++) {
+			CurrentXY(70 + i, j);
+			printf(" ");
 		}
+	}
 
-		Print_form();
-		Write_board();
-		Check_line();
+	for (int i = 0; i < 20; i++) {
+		for (int j = 0; j < 20; j++) {
+			CurrentXY(32 + i, j);
+			printf(" ");
+		}
+	}
+
+	Timing();
+	Timing();
+
+	level = 1;
+
+	for (int i = 1; i < 20; i++) {
+		CurrentXY(32, i - 1);
+		printf("기주영");
+		CurrentXY(32, i);
+		printf("프로그래밍");
 
 		Timing();
 
+		CurrentXY(32, i - 1);
+		printf("      ");
+		CurrentXY(32, i);
+		printf("          ");
+	}
 
-	} while (1);
+	Timing();
 
-	CursorOn();
+	for (int i = 1; i < 20; i++) {
+		CurrentXY(41, i - 1);
+		printf("그래픽");
+		CurrentXY(41, i);
+		printf("김민찬");
 
-	return 0;
-}*/
+		Timing();
+
+		CurrentXY(41, i - 1);
+		printf("      ");
+		CurrentXY(41, i);
+		printf("      ");
+	}
+
+	Timing();
+
+	for (int i = 1; i < 20; i++) {
+		CurrentXY(41, i - 1);
+		printf("프로그래밍");
+		CurrentXY(41, i);
+		printf("    배강민");
+
+		Timing();
+
+		CurrentXY(41, i - 1);
+		printf("          ");
+		CurrentXY(41, i);
+		printf("          ");
+	}
+
+	Timing();
+
+	for (int i = 1; i < 20; i++) {
+		CurrentXY(34, i - 1);
+		printf("그래픽");
+		CurrentXY(34, i);
+		printf("    최종호");
+
+		Timing();
+
+		CurrentXY(34, i - 1);
+		printf("      ");
+		CurrentXY(34, i);
+		printf("          ");
+	}
+
+	Timing();
+
+	for (int i = 1; i < 20; i++) {
+		CurrentXY(35, i - 1);
+		printf("THE");
+		CurrentXY(35, i);
+		printf("END");
+
+		Timing();
+
+		CurrentXY(35, i - 1);
+		printf("     ");
+		CurrentXY(35, i);
+		printf("     ");
+	}
+
+	Timing();
+	Timing();
+
+	exit(3);
+}
 
 void Update_Bag() {
 	if (bagCount == 0) {
@@ -275,11 +349,14 @@ void Print_Boss() {
 	}
 	else if (boss > 2500) {
 		level = 3;
-		printf("화남");
+		printf("화남     ");
 	}
 	else if (boss > 0) {
 		level = 4;
 		printf("극대노");
+	}
+	else {
+		Ending();
 	}
 	CurrentXY(86, 20);
 	printf("체력 : %d", boss);
@@ -490,7 +567,7 @@ void Check_line() {
 		if (rst == TRUE) {
 			Move_data(i);
 			Print_data();
-			ChangeScore(boss - (100 + rand() % 100));
+			ChangeScore(boss - (1000 + rand() % 100)); //데미지 조작 origin > 100 + rand() % 100
 			i--;
 		}
 	}
